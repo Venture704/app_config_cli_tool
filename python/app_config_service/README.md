@@ -281,3 +281,54 @@ python -m unittest app_config_service.tests.test_config_manager
 - All major features, edge cases, and error conditions are covered by the tests.
 
 ---
+
+## Directory Structure and Running Commands
+
+This project now supports both the original and the new (multi-language ready) directory structure. You can run the CLI and tests from different locations as follows:
+
+### Directory Structure
+
+- **New (recommended):**
+  - `python/app_config_service/cli.py`
+- **Old (legacy):**
+  - `app_config_service/cli.py`
+
+### Running the CLI and Tests
+
+#### 1. From the **repo root** (multi-language, e.g., `app_config_cli_tool/`):
+
+- **New structure:**
+  ```sh
+  python -m python.app_config_service.cli [COMMAND] [ARGS]
+  python -m unittest discover -s python/app_config_service/tests
+  ```
+- **Old structure:**
+  ```sh
+  python -m app_config_service.cli [COMMAND] [ARGS]
+  python -m unittest discover -s app_config_service/tests
+  ```
+
+#### 2. From inside the **python** folder (`app_config_cli_tool/python/`):
+
+- **New structure:**
+  ```sh
+  python -m app_config_service.cli [COMMAND] [ARGS]
+  python -m unittest discover -s app_config_service/tests
+  ```
+
+#### 3. From inside the **app_config_service** folder (`app_config_cli_tool/python/app_config_service/`):
+
+- To run the CLI (using the parent folder as module root):
+  ```sh
+  cd ..
+  python -m app_config_service.cli [COMMAND] [ARGS]
+  python -m unittest discover -s app_config_service/tests
+  ```
+
+**Notes:**
+- The `-m` flag requires you to specify the module path relative to your current directory.
+- For most users, running from the `python` folder is simplest.
+- Both the new and old paths are supported for backward compatibility.
+- If you add other language implementations (e.g., `rust/`, `golang/`), each will have its own folder at the same level as `python/`.
+
+---
